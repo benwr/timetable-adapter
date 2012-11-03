@@ -36,8 +36,8 @@ class Timetable
   end
 
   def search(opts = {})
-    # Returns an array of hash maps of course info for the given semester
-    #   Includes the keys :subject :number :credits :title :crn :term
+    # Returns an array of hash maps of course info for the given semester.
+    #   Courses include the keys :subject :number :credits :title :crn :term
     #   :instructor :days :begin :end :type and :location
 
     o = {:subj        => "",
@@ -48,6 +48,7 @@ class Timetable
          :campus      => 0,
          :area        => "%25"
     }.merge(opts)
+    # Options are passed in a hash map
 
     search_string = format(@search_format, 
                            o[:campus],
@@ -58,15 +59,19 @@ class Timetable
                            o[:crn])
 
     search_string = search_string + (o[:historical] ? "&history=Y" : '')
+
     resp = Nokogiri::HTML(open(@url + search_string))
-    result = []
-    firstrow = 1
     rows = resp.xpath('//tr')[firstrow..-1]
-    return [] if rows.nil?
+
+    result = []
+    return result if rows.nil?
+
+    firstrow = 1 # Different formatting requires different stating rows.
+
     rows.each do |row|
       tds = row.css('td')
 
-      if tds.length > 10
+      if tds.length > 10 # Either a regular row, or an "Additional Times" row
         name = tds[1].text.strip.split("-")
         subj = name[0]
         num = name[1]
@@ -80,7 +85,7 @@ class Timetable
                   :term       => o[:term],
                   :instructor => tds[6].text.strip}
 
-        if tds.length == 12
+        if tds.length == 12 # Regular row
           course[:days]      = [tds[7].text.strip.split]
           course[:begin]     = [tds[8].text.strip]
           course[:end]       = [tds[9].text.strip]
