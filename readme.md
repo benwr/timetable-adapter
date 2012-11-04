@@ -1,6 +1,6 @@
 # Timetable Adapter #
 
-Virginia Tech's 
+If you're a computer (or a programmer), Virginia Tech's 
 [timetable of courses](https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_ProcRequest), 
 a component of the Banner system used here (and at many other universities),
 sucks. There's no reasonable API, the information about classes isn't
