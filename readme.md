@@ -21,9 +21,30 @@ returned in a list of ruby hash maps.
 This data is exposed through the courseserver.rb web application.
 
 * `/search?subj=ece&num=2504&crn=120931&term=201201&type=L`
-  searches for exactly what you would expect. All parameters are optional,
-  but keep in mind that banner has restrictions on what it will search for.
-  If you leave out the term, you might expect that you would get results
-  for all terms. Unfortunately, Banner disallows this. 
+  searches for exactly what you would expect. Available parameters are
+  * "subj" - For example, "als" 
+  * "num" - For example, "2114" 
+  * "historical" - Indicates whether or not to search the historical timetable.
+      It's assumed to be false. If it's set to true (using the value "Y"),
+      more semesters can be searched, but the CRNs aren't available.
+  * "crn" - Searches for a particular CRN. You should expect to receive a JSON
+      list containing either one or zero courses.
+  * "term" - Four-digit year, and a two-digit semester indicator. 201301 is
+    Spring 2013, 201306 is Summer I 2013, 201307 is Summer II 2013, and 201309
+    is Fall 2013.
+  * "campus" - Campus identifier. 0 is Blacksburg, 2 is Western, 3 is Valley,
+      4 is National Capital Region, 6 is Central, 7 is Hampton Roads Center,
+      8 is Capital, 9 is Other, and 10 is Virtual.
+  * "area" - Two-digit Curriculum for Liberal Education area. 01 is Writing
+      and Discourse; 02 is Ideas, Cultural Traditions, and Values; 03 is Society
+      and Human Behavior; 04 is Scientific Reasoning and Discovery; 05 is
+      Quantitative and Symbolic Reasoning; 06 is Creativity and Aesthetic
+      Experience; 07 is Critical Issues in a Global Context 1W is Writing
+      Intensive.
+
+  All parameters are optional. Leaving most options unspecified searches among
+  all possible values, but "campus" and "term" have default values of 0 and
+  201301, respectively, because Banner doesn't allow you to leave these fields
+  blank.
 * `/course/ece/2504`
 * `/crn/120931`
