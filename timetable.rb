@@ -61,12 +61,12 @@ class Timetable
     search_string = search_string + (o[:historical] ? "&history=Y" : '')
 
     resp = Nokogiri::HTML(open(@url + search_string))
+    firstrow = 1 # Different formatting requires different stating rows.
     rows = resp.xpath('//tr')[firstrow..-1]
 
     result = []
     return result if rows.nil?
 
-    firstrow = 1 # Different formatting requires different stating rows.
 
     rows.each do |row|
       tds = row.css('td')

@@ -8,17 +8,16 @@ get '/' do
   "To find info on, say, ENGE 1024, GET /ENGE/1024"
 end
 
-get '/detail/:subj/:num' do
+get '/search' do
   t = Timetable.new
-  JSON::dump(t.search(CURRENT_SEMESTER, params[:subj], params[:num], false))
-end
-
-get '/detail/:sem/:subj/:num' do
-  t = Timetable.new
-  JSON::dump(t.search(params[:sem], 
-                      params[:subj], 
-                      params[:num], 
-                      params[:sem] != CURRENT_SEMESTER ))
+  terms = {}
+  [:subj, :num, :crn, :term, :campus, :area].each do |field|
+    if params[field]
+      terms[field] = params[field]
+    end
+  end
+  results = t.search(terms)
+  JSON::dump(results)
 end
 
 get '/:subj/:num' do
