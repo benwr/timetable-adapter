@@ -8,6 +8,9 @@ available from any one place, and it's just generally ugly. This is an
 attempt to build an adapter for it. It should be relatively easy to modify
 to work with other universities' systems.
 
+You can run an instance of it, or you can check out [the instance I have
+running.](http://courses.benwr.net)
+
 ## Architecture ##
 
 The main thing here is the "Timetable" class. It does all of the actual
@@ -47,5 +50,13 @@ This data is exposed through the courseserver.rb web application.
   201301, respectively, because Banner doesn't allow you to leave these fields
   blank.
 
-* `/course/ece/2504`
-* `/crn/120931`
+* `/course/ece/2504` returns only the date-nonspecific information about a
+    course.
+
+* `/crn/120931` is not yet implemented, but should be easy.
+
+## Data returned ##
+
+All returned data is simple JSON. `/search` returns a list of dictionaries,
+and `/course/ece/2504` returns a single dict. To see it, [just check it 
+out!](http://courses.benwr.net/search?subj=engl&num=2744)
