@@ -18,7 +18,11 @@ class Timetable
     results = []
     format = @search_format
     semesters_checked = 0;
-    while (((results = search(term, subj, id, semesters_checked > 1)) == []) and (semesters_checked < 8))
+    while ((results = search({:term => term, 
+                               :subj => subj, 
+                               :num => id, 
+                               :historical => semesters_checked > 1}) 
+            ) == []) and (semesters_checked < 8)
       semesters_checked += 1;
       term = previous_semester(term)
     end

@@ -5,7 +5,7 @@ require 'json'
 CURRENT_SEMESTER = '201301'
 
 get '/' do
-  "To find info on, say, ENGE 1024, GET /ENGE/1024"
+  "To find info on, say, ENGE 1024, GET /search?subj=enge&num=1024"
 end
 
 get '/search' do
@@ -16,11 +16,18 @@ get '/search' do
       terms[field] = params[field]
     end
   end
+
+  if params[:historical] != "Y"
+    terms[:historical] = true
+  else
+    terms[:historical] = false
+  end
+
   results = t.search(terms)
   JSON::dump(results)
 end
 
-get '/:subj/:num' do
+get '/course/:subj/:num' do
   t = Timetable.new
   JSON::dump(t.course_info(params[:subj], params[:num]))
 end

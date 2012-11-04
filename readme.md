@@ -46,5 +46,6 @@ This data is exposed through the courseserver.rb web application.
   all possible values, but "campus" and "term" have default values of 0 and
   201301, respectively, because Banner doesn't allow you to leave these fields
   blank.
+
 * `/course/ece/2504`
 * `/crn/120931`
