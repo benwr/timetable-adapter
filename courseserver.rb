@@ -5,7 +5,13 @@ require 'json'
 CURRENT_SEMESTER = '201301'
 
 get '/' do
-  "To find info on, say, ENGE 1024, GET /search?subj=enge&num=1024"
+  "<html> 
+  <body> 
+  To find info on, say, ENGE 1024, GET /search?subj=enge&num=1024<br />
+  More detailed information is available on this project's 
+  <a href='http://github.com/benwr/timetable-adapter'>Github page.</a>
+  </body>
+  </html>"
 end
 
 get '/search' do
