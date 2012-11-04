@@ -15,6 +15,8 @@ get '/' do
 end
 
 get '/search' do
+  headers 'Access-Control-Allow-Origin' => '*'
+
   t = Timetable.new
   terms = {}
   [:subj, :num, :crn, :term, :campus, :area].each do |field|
@@ -34,6 +36,7 @@ get '/search' do
 end
 
 get '/course/:subj/:num' do
+  headers 'Access-Control-Allow-Origin' => '*'
   t = Timetable.new
   JSON::dump(t.course_info(params[:subj], params[:num]))
 end
