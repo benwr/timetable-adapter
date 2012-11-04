@@ -5,6 +5,7 @@ require 'json'
 CURRENT_SEMESTER = '201301'
 
 get '/' do
+  content_type ('text/html')
   "<html> 
   <body> 
   To find info on, say, ENGE 1024, GET 
@@ -16,7 +17,7 @@ get '/' do
 end
 
 get '/search' do
-  headers 'Access-Control-Allow-Origin' => '*'
+  headers 'Access-Control-Allow-Origin' => '*', 'Content-Type' => 'application/json'
 
   t = Timetable.new
   terms = {}
@@ -37,7 +38,7 @@ get '/search' do
 end
 
 get '/course/:subj/:num' do
-  headers 'Access-Control-Allow-Origin' => '*'
+  headers 'Access-Control-Allow-Origin' => '*', 'Content-Type' => 'application/json'
   t = Timetable.new
   JSON::dump(t.course_info(params[:subj], params[:num]))
 end
