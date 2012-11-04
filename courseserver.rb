@@ -18,9 +18,9 @@ get '/search' do
   end
 
   if params[:historical] != "Y"
-    terms[:historical] = true
-  else
     terms[:historical] = false
+  else
+    terms[:historical] = true
   end
 
   results = t.search(terms)
